@@ -7,15 +7,15 @@ f11 = f1.readlines()
 f2 = open (file2, 'r')
 f22 = f2.readlines()
 x = 0
-# print "Difference in source:"
-# for line1 in f11:
-# 	#for line2 in f2:
-# 	if line1 != f22[x]: 
-# 		print line1
-# 		#print f22[x]
-# 	x += 1
-d = difflib.Differ()
-diff = d.compare(f11,f22)
-print ("".join(diff))
+#print "Difference in source:"
+for line1 in f11:
+	#for line2 in f2:
+	if line1 != f22[x]: 
+		print line1
+		#print f22[x]
+	x += 1
+# d = difflib.Differ()
+# diff = d.compare(f11,f22)
+# print ("\n".join(diff))
 f1.close
 f2.close	

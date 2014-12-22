@@ -1,0 +1,10 @@
+#!/usr/bin/python
+
+import sys, subprocess
+username = sys.argv[1]
+passw = sys.argv[2]
+db = sys.argv[3]
+filename = sys.argv[4]
+port = sys.argv[5]
+cmd  = "mysql -u%s -p%s --port=%s %s < %s" %(username,passw,port,db,filename)
+p1 = subprocess.Popen(cmd,shell=True)

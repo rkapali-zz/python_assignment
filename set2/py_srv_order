@@ -1,10 +1,7 @@
 #!/usr/bin/python
-import subprocess, pprint
-subprocess.call('exit 1', shell=True)
-ps = subprocess.Popen(['ls','-t','/etc/rc5.d'] , stdout=subprocess.PIPE)
-ps1 = ps.communicate()[0]
-ps1 = ps1.split()
-for x in ps1:  
-	if x.startswith('S'): 
-		print x
-	
+import subprocess, pprint, sys, os, glob
+f = glob.glob('/etc/rc5.d/S*')
+f.sort()
+for x in f:
+	print x.split('/')[-1]
+

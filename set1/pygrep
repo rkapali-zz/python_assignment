@@ -1,8 +1,11 @@
 #!/usr/bin/python
-import sys
+import sys, gzip
 string = str(sys.argv[1])
 filename = sys.argv[2]
-f = open (filename, 'r')
+if filename.endswith('gz'):
+	f = gzip.open(filename, 'r')
+else:	
+	f = open (filename, 'r')
 for line in f:
 	if string in line:
 		print line

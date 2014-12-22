@@ -1,0 +1,6 @@
+#!/usr/bin/python
+import sys, glob
+process_id = str(sys.argv[1])
+process_id = "/proc/%s/fd" % process_id
+print process_id
+

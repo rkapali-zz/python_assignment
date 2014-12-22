@@ -1,0 +1,14 @@
+#!/usr/bin/python
+import sys, os
+process_id = str(sys.argv[1])
+process_id_dir = "/proc/%s/fd" % process_id
+process_list = os.listdir(process_id_dir)
+process_list1 = ['%s/%s'% (process_id_dir , x) for x in process_list]
+for x in process_list1:
+	y = os.readlink(x)
+	if y.startswith('/dev') or y.startswith('pipe') or y.startswith('socket') or 'inode' in y:
+		pass
+	else:
+		print os.readlink(x)
+		
+

@@ -1,0 +1,6 @@
+#!/usr/bin/python
+
+#needs sudo previledge
+import sys, os, subprocess
+p1 = subprocess.Popen(['blkid', '-c', '/dev/null'], stdout=subprocess.PIPE).communicate()[0]
+print p1

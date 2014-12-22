@@ -1,10 +1,12 @@
 #!/usr/bin/python
-import sys, zipfile
+import sys, gzip
 #arg1 = str(sys.argv)
 #print arg1
 filename = str(sys.argv[1])
-if filename ends
-f = zipfile.ZipFile(filename,'r')
-content = f.read('')
+if filename.endswith('gz'):
+	f = gzip.open(filename,'r')
+else:	
+	f = open(filename,'r')
+content = f.read()
 print content
 f.close()
