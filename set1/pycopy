@@ -1,0 +1,10 @@
+#!/usr/bin/python
+import sys, zipfile
+source = str(sys.argv[1])
+dest = str(sys.argv[2])
+source_f = open (source,'r')
+dest_f = open (dest, 'w')
+content = source_f.read()
+writer = dest_f.write(content)
+source_f.close
+dest_f.close

@@ -1,0 +1,9 @@
+#!/usr/bin/python
+import sys
+string = str(sys.argv[1])
+filename = sys.argv[2]
+f = open (filename, 'r')
+for line in f:
+	if string in line:
+		print line
+f.close	
