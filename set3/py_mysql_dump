@@ -8,7 +8,7 @@ username = '-u%s' %username
 passw = sys.argv[2]
 passw = '-p%s' %passw
 db = sys.argv[3]
-filename = '%s.sql' %date
+filename = '%s_%s.sql' %(db,date)
 port = sys.argv[4]
 port = '--port=%s' %port
 list1 = ['mysqldump', '-v', username , passw , db, port]

@@ -1,0 +1,11 @@
+#!/usr/bin/python
+
+import sys, os, subprocess, datetime,time
+date = time.time()
+date = datetime.datetime.fromtimestamp(date).strftime('%Y%m%d%H%M%S')
+url = sys.argv[1]
+git = url.split("/")[-1]
+cmd1 = "git clone --mirror %s " %url
+cmd2 = "tar -cf %s_%s.tar.gz %s " %(git,date,git)
+p = subprocess.call(cmd1,shell=True)
+p = subprocess.call(cmd2,shell=True)
