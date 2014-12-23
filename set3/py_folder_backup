@@ -1,0 +1,21 @@
+#!/usr/bin/python
+
+import sys, subprocess, datetime,time
+date = time.time()
+date = datetime.datetime.fromtimestamp(date).strftime('%Y%m%d%H%M%S')
+folder = sys.argv[1]
+tar_type = "tar.gz"
+if len(sys.argv) > 2:
+	backup = sys.argv[2]
+	print backup
+	if backup.endswith("tar.gz"):
+		backup = backup[:-7]
+		print backup 
+	elif backup.endswith("tar"):
+		backup = backup[:-4]
+		tar_type = "tar"
+		print backup
+else:
+	backup = folder
+cmd1 = "tar -cf %s_%s.%s %s " %(backup,date,tar_type,folder)
+p = subprocess.call(cmd1,shell=True)
