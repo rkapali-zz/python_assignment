@@ -1,17 +1,23 @@
 #!/usr/bin/python
 
-import sys, os, subprocess, datetime,time
+import argparse, os, subprocess, datetime,time
 date = time.time()
 date = datetime.datetime.fromtimestamp(date).strftime('%Y%m%d%H%M%S')
-username = sys.argv[1]
-username = '-u%s' %username
-passw = sys.argv[2]
-passw = '-p%s' %passw
-db = sys.argv[3]
-filename = '%s_%s.sql' %(db,date)
-port = sys.argv[4]
-port = '--port=%s' %port
-list1 = ['mysqldump', '-v', username , passw , db, port]
+parser = argparse.ArgumentParser(description="Dumps a mysql DB into an SQL file whose name will contain ISO timestamp")
+parser.add_argument("--username", "-u", help=" The admin username of the DB",)
+parser.add_argument("--password", "-p", help=" The password of the admin user of the DB")
+parser.add_argument("--db", "-DB", help=" The name of the DB to be dumped")
+parser.add_argument("--hostname", "-H" ,help=" The hostname of the machine in which the DB is running", default="localhost")
+parser.add_argument("--port", "-P", help=" The port on which mysql is running", default="3306")
+# parser.add_argument("filename",help=" The name of the SQL file un which the DB is to be dumped")
+lattu = parser.parse_args()
+username = '-u%s' %lattu.username
+password = '-p%s' %lattu.password
+filename = '%s_%s.sql' %(lattu.db,date)
+port = '--port=%s' %lattu.port
+hostname = '-h%s' %lattu.hostname
+db = lattu.db
+list1 = ['mysqldump', '-v', username , password , db, port, hostname]
 p1 = subprocess.Popen( list1 , stdout=subprocess.PIPE).communicate()[0]
 f = open (filename,'w')
 g = f.write(p1)

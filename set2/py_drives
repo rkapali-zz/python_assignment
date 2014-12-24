@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 #needs sudo previledge
-import sys, os, subprocess
+import subprocess,argparse
+parser = argparse.ArgumentParser(description="Use sudo to get list of drives mounted in the system")
+#parser.add_argument("-d","--delp",action="store_true")
+args = parser.parse_args()
 p1 = subprocess.Popen(['blkid', '-c', '/dev/null'], stdout=subprocess.PIPE).communicate()[0]
 print p1

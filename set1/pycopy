@@ -1,13 +1,17 @@
 #!/usr/bin/python
-import sys, gzip
-source = str(sys.argv[1])
-dest = str(sys.argv[2])
-if source.endswith('gz'):
-	source_f = gzip.open(source,'r')
-	dest_f = gzip.open(dest, 'w')
+import sys, gzip, argparse
+parser = argparse.ArgumentParser(description="Copy one file to another")
+parser.add_argument("source",help="The source file")
+parser.add_argument("dest",help="The destination file, if destination doesn't exists, the program creates one for you")
+args = parser.parse_args()
+# source = str(sys.argv[1])
+# dest = str(sys.argv[2])
+if args.source.endswith('gz'):
+	source_f = gzip.open(args.source,'r')
+	dest_f = gzip.open(args.dest, 'w')
 else:
-	source_f = open (source,'r')
-	dest_f = open (dest, 'w')
+	source_f = open (args.source,'r')
+	dest_f = open (args.dest, 'w')
 content = source_f.read()
 writer = dest_f.write(content)
 source_f.close

@@ -1,12 +1,16 @@
 #!/usr/bin/python
-import sys, gzip
-string = str(sys.argv[1])
-filename = sys.argv[2]
-if filename.endswith('gz'):
-	f = gzip.open(filename, 'r')
+import gzip, argparse
+parser = argparse.ArgumentParser(description="Finds given string in given file")
+parser.add_argument("string",help="The string that is to be found")
+parser.add_argument("filename",help="The file in which the string is to be found")
+search = parser.parse_args()
+# string = str(sys.argv[1])
+# filename = sys.argv[2]
+if search.filename.endswith('gz'):
+	f = gzip.open(search.filename, 'r')
 else:	
-	f = open (filename, 'r')
+	f = open (search.filename, 'r')
 for line in f:
-	if string in line:
+	if search.string in line:
 		print line
 f.close	
