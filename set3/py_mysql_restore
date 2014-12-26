@@ -1,10 +1,21 @@
 #!/usr/bin/python
 
-import sys, subprocess
+import sys, subprocess, os
 username = sys.argv[1]
 passw = sys.argv[2]
 db = sys.argv[3]
 filename = sys.argv[4]
 port = sys.argv[5]
-cmd  = "mysql -u%s -p%s --port=%s %s < %s" %(username,passw,port,db,filename)
-p1 = subprocess.Popen(cmd,shell=True)
+
+dec_file = filename[:-4]
+key = "123wer123zxc123"
+
+cmd2 = "openssl enc -in %s -out %s -d -aes256 -k %s" %(filename,dec_file,key)
+p2 = subprocess.Popen(cmd2, shell=True)
+p2.wait()
+
+# cmd  = "mysql -u%s -p%s --port=%s %s < %s" %(username,passw,port,db,dec_file)
+# p1 = subprocess.Popen(cmd,shell=True)
+# p1.wait()
+
+# os.remove(dec_file)
