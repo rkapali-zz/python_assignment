@@ -9,3 +9,7 @@ cmd1 = "git clone --mirror %s " %url
 cmd2 = "tar -cf %s_%s.tar.gz %s " %(git,date,git)
 p = subprocess.call(cmd1,shell=True)
 p = subprocess.call(cmd2,shell=True)
+cmd3 = "openssl enc -in %s -out %s.enc -e -aes256 -k %s" %(filename,filename,key)
+p2 = subprocess.Popen( cmd, shell=True)
+p2.wait()
+os.remove(filename)

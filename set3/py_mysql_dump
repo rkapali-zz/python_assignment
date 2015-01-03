@@ -1,39 +1,72 @@
 #!/usr/bin/python
 
-import argparse, os, subprocess, datetime, time
+import argparse, os, subprocess, datetime, time, ConfigParser
 
-key = "123wer123zxc123"
+def get_value():
+	try:
+		parser = argparse.ArgumentParser(description="Dumps a mysql DB into an SQL file whose name will contain ISO timestamp")
+		parser.add_argument("-c", "--conf_file", help=" The conf file containing the settings",)
+		lattu = parser.parse_args()
 
-date = time.time()
-date = datetime.datetime.fromtimestamp(date).strftime('%Y%m%d%H%M%S')
+		conf = ConfigParser.ConfigParser(allow_no_value=True)
 
-parser = argparse.ArgumentParser(description="Dumps a mysql DB into an SQL file whose name will contain ISO timestamp")
-parser.add_argument("--username", "-u", help=" The admin username of the DB",)
-parser.add_argument("--password", "-p", help=" The password of the admin user of the DB")
-parser.add_argument("--db", "-DB", help=" The name of the DB to be dumped")
-parser.add_argument("--hostname", "-H" ,help=" The hostname of the machine in which the DB is running", default="localhost")
-parser.add_argument("--port", "-P", help=" The port on which mysql is running", default="3306")
-#parser.add_argument("filename",help=" The name of the SQL file un which the DB is to be dumped")
+		# loading conf file
+		conf.read (lattu.conf_file)
+		username = conf.get ('default', 'username')
+		password =  conf.get ('default', 'password')
+		db =  conf.get ('default', 'db_name')
+		key = conf.get ('default', 'key')
+		try: 
+			conf.get('default', 'hostname')
+		except ConfigParser.NoOptionError:
+			hostname = "localhost"
+		try:
+			conf.get ('default', 'port')
+		except ConfigParser.NoOptionError:	
+			port = "3306"
+		print hostname
 
-lattu = parser.parse_args()
+	except TypeError or NameError:
+		print "You forgot to enter the conf file. To see proper usage use 'py_mysql_dump -h'."
+	return 
 
-username = '-u%s' %lattu.username
-password = '-p%s' %lattu.password
-filename = '%s_%s.sql' %(lattu.db,date)
-port = '--port=%s' %lattu.port
-hostname = '-h%s' %lattu.hostname
-db = lattu.db
+def cur_datetime():
+	date = time.time()
+	date = datetime.datetime.fromtimestamp(date).strftime('%Y%m%d%H%M%S')
+	return
 
-list1 = ['mysqldump', '-v', username , password , db, port, hostname]
-f = open (filename,'w')
-p1 = subprocess.Popen( list1 , stdout=subprocess.PIPE).communicate()[0]
-f.write(p1)
-f.close
+# parser = argparse.ArgumentParser(description="Dumps a mysql DB into an SQL file whose name will contain ISO timestamp")
+# parser.add_argument("--username", "-u", help=" The admin username of the DB",)
+# parser.add_argument("--password", "-p", help=" The password of the admin user of the DB")
+# parser.add_argument("--db", "-DB", help=" The name of the DB to be dumped")
+# parser.add_argument("--hostname", "-H" ,help=" The hostname of the machine in which the DB is running", default="localhost")
+# parser.add_argument("--port", "-P", help=" The port on which mysql is running", default="3306")
+# #parser.add_argument("filename",help=" The name of the SQL file un which the DB is to be dumped")
 
-cmd = "openssl enc -in %s -out %s.enc -e -aes256 -k %s" %(filename,filename,key)
-p2 = subprocess.Popen( cmd, shell=True)
-p2.wait()
-os.remove(filename)
+# lattu = parser.parse_args()
+
+# username = '-u%s' %lattu.username
+# password = '-p%s' %lattu.password
+# filename = '%s_%s.sql' %(lattu.db,date)
+# port = '--port=%s' %lattu.port
+# hostname = '-h%s' %lattu.hostname
+# db = lattu.db
+
+def mysql_dump():
+	print "username \ndb\n port\nkey "
+# list1 = ['mysqldump', '-v', username , password , db, port, hostname]
+# f = open (filename,'w')
+# p1 = subprocess.Popen( list1 , stdout=subprocess.PIPE).communicate()[0]
+# f.write(p1)
+# f.close
+	return
+# cmd = "openssl enc -in %s -out %s.enc -e -aes256 -k %s" %(filename,filename,key)
+# p2 = subprocess.Popen( cmd, shell=True)
+# p2.wait()
+# os.remove(filename)
 
 
-
+if __name__=="__main__":
+	get_value()
+	cur_datetime()
+	mysql_dump()

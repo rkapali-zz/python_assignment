@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys, subprocess, os
+
 username = sys.argv[1]
 passw = sys.argv[2]
 db = sys.argv[3]
