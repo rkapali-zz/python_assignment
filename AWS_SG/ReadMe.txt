@@ -4,6 +4,32 @@ Python_AWS_SG_Auditor
 
 This python script authorizes a IP's and ports from a list to the AWS accounts in another list. 
 
+Requirements:
+- boto 2.34 
+		to install boto "pip install boto"
+- IAM user for required AWS account with the minimum user policy as the following:
+
+		{
+		  "Version": "2012-10-17",
+		  "Statement": [
+		    {
+		      "Sid": "Stmt1420314080000",
+		      "Effect": "Allow",
+		      "Action": [
+		        "ec2:AuthorizeSecurityGroupEgress",
+		        "ec2:AuthorizeSecurityGroupIngress",
+		        "ec2:CreateSecurityGroup",
+		        "ec2:DescribeSecurityGroups",
+		        "ec2:RevokeSecurityGroupEgress",
+		        "ec2:RevokeSecurityGroupIngress"
+		      ],
+		      "Resource": [
+		        "*"
+		      ]
+		    }
+		  ]
+}
+
 How To use:
 - Make the main.py executable with "chmod +X main.py"
 
